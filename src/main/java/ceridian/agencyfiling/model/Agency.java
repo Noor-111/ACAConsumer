@@ -1,4 +1,4 @@
-package ceridian.agencyfiling.entity;
+package ceridian.agencyfiling.model;
 
 
 import jakarta.persistence.Entity;
@@ -52,4 +52,5 @@ public class Agency {
     private LocalDateTime addedOn;
 
     //getters and setters
+
 }
