@@ -2,6 +2,7 @@ package ceridian.agencyfiling.consumer;
 
 import java.io.IOException;
 
+import ceridian.agencyfiling.dao.HelperDBRepository;
 import ceridian.agencyfiling.service.LiquidTransformationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,10 @@ public class LiqConsumerService {
 	@Autowired
 	private LiquidTransformationService liquidTransformationService;
 
+	//TEST
+	@Autowired
+	private HelperDBRepository helperDBRepository;
+
 	private final Logger logger = LoggerFactory.getLogger(LiqConsumerService.class);
 
 	@KafkaListener(id = "aca-liq-consumer", topics = "purchases", groupId = "spring-boot", autoStartup = "false")
@@ -26,7 +31,8 @@ public class LiqConsumerService {
 			@Header(KafkaHeaders.RECEIVED_KEY) String key) throws IOException {
 		logger.info(String.format("Consumed event from topic %s: key = %-10s value = %s", topic, key, value));
 
-		process(value);
+//		process(value);
+		helperDBRepository.addNewMessage(value);
 
 	}
 
